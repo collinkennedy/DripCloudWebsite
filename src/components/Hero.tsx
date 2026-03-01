@@ -17,9 +17,10 @@ const Hero: React.FC = () => {
         
         <a 
           href="#"
-          className="inline-block bg-[#6B2D8B] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#5a2575] transition-colors duration-200 shadow-lg hover:shadow-xl"
+          className="book-demo-btn inline-block bg-[#6B2D8B] text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
+          style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
         >
-          Book a Demo
+          <span className="relative z-10">Book a Demo</span>
         </a>
       </div>
     </section>
