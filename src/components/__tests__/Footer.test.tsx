@@ -15,7 +15,14 @@ describe('Footer', () => {
 
   it('renders copyright', () => {
     render(<Footer />)
-    expect(screen.getByText(/DripCloud. All rights reserved/i)).toBeInTheDocument()
+    expect(screen.getByText(/DripCloud LLC. All rights reserved/i)).toBeInTheDocument()
+  })
+
+  it('renders contact link', () => {
+    render(<Footer />)
+    const link = screen.getByText('Contact Us')
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute('href', 'mailto:chandler@thedripcloud.com')
   })
 
   it('has footer testid', () => {
