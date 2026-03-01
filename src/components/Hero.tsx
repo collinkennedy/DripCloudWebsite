@@ -4,7 +4,7 @@ const Hero: React.FC = () => {
   return (
     <section 
       data-testid="hero"
-      className="w-full bg-gradient-to-br from-[#6B2D8B] to-[#9B59B6] py-24 px-6"
+      className="w-full min-h-[calc(100vh-64px)] flex items-center bg-gradient-to-br from-[#6B2D8B] to-[#9B59B6] px-6"
     >
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">

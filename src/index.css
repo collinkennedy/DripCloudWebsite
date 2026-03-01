@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+h1, h2, h3 {
+  font-family: 'Geist', sans-serif;
+}
+
+body, p, span, a, li, td {
+  font-family: 'Geist Mono', monospace;
+}
