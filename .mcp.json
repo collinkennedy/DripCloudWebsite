@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "motion-studio": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=5.2.0"
+      ]
+    }
+  }
+}
