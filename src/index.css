@@ -1,5 +1,39 @@
 @import "tailwindcss";
 
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  animation: cursor-blink 0.6s step-end infinite;
+}
+
+@keyframes blob-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(60px, -40px) scale(1.05); }
+  50% { transform: translate(-30px, 50px) scale(0.95); }
+  75% { transform: translate(40px, 20px) scale(1.02); }
+}
+
+@keyframes blob-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-50px, 30px) scale(0.97); }
+  50% { transform: translate(40px, -60px) scale(1.04); }
+  75% { transform: translate(-20px, -30px) scale(1); }
+}
+
+@keyframes blob-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, 50px) scale(1.03); }
+  50% { transform: translate(-50px, -20px) scale(0.98); }
+  75% { transform: translate(20px, -40px) scale(1.05); }
+}
+
+.hero-blob-1 { animation: blob-drift-1 20s ease-in-out infinite; }
+.hero-blob-2 { animation: blob-drift-2 25s ease-in-out infinite; }
+.hero-blob-3 { animation: blob-drift-3 22s ease-in-out infinite; }
+
 @keyframes shine-sweep {
   0% { left: -100%; }
   40% { left: 100%; }

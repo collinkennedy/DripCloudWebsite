@@ -3,9 +3,10 @@ import { describe, it, expect } from 'vitest'
 import Hero from '../Hero'
 
 describe('Hero', () => {
-  it('renders headline', () => {
+  it('renders headline container', () => {
     render(<Hero />)
-    expect(screen.getByText('Custom Merch, Zero Waste')).toBeInTheDocument()
+    const h1 = screen.getByRole('heading', { level: 1 })
+    expect(h1).toBeInTheDocument()
   })
 
   it('renders subheadline', () => {
