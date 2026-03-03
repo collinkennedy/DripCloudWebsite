@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import clothingRack from '../assets/clothing_rack_pic.png'
 
 const HEADLINE = 'Custom Merch, Zero Waste'
 const CHAR_SPEED = 0.1
@@ -35,61 +36,19 @@ const Hero: React.FC = () => {
   }, [typingDone])
 
   return (
-    <section 
+    <section
       data-testid="hero"
       className="w-full min-h-[calc(100vh-80px)] flex items-center relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 25%, #7e4a9e 50%, #4a1a6b 75%, #1a0a2e 100%)' }}
     >
-      {/* Mesh gradient layers */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(126,74,158,0.8) 0%, transparent 70%)'
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse 60% 80% at 20% 60%, rgba(45,27,78,0.9) 0%, transparent 60%)'
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse 50% 50% at 80% 30%, rgba(75,0,130,0.7) 0%, transparent 60%)'
-        }} />
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse 45% 35% at 50% 38%, rgba(186,130,245,0.5) 0%, rgba(155,89,182,0.2) 40%, transparent 70%)'
-        }} />
-      </div>
+      {/* Background image */}
+      <img
+        src={clothingRack}
+        alt="Clothing rack displaying custom branded merchandise"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
-      {/* Animated blobs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="hero-blob hero-blob-1 absolute rounded-full"
-          style={{
-            width: '500px', height: '500px',
-            background: 'radial-gradient(circle, rgba(186,130,245,0.35) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-            top: '10%', left: '15%',
-          }}
-        />
-        <div className="hero-blob hero-blob-2 absolute rounded-full"
-          style={{
-            width: '450px', height: '450px',
-            background: 'radial-gradient(circle, rgba(75,0,130,0.4) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-            top: '50%', right: '10%',
-          }}
-        />
-        <div className="hero-blob hero-blob-3 absolute rounded-full"
-          style={{
-            width: '400px', height: '400px',
-            background: 'radial-gradient(circle, rgba(218,112,214,0.3) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-            bottom: '5%', left: '40%',
-          }}
-        />
-      </div>
-
-      {/* SVG noise texture overlay */}
-      <div className="absolute inset-0 opacity-[0.05]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        backgroundRepeat: 'repeat',
-        backgroundSize: '256px 256px',
-      }} />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/50" />
 
       {/* Content */}
       <div className="max-w-4xl mx-auto text-center relative z-10 px-6">
