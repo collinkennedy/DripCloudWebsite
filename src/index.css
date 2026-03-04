@@ -67,10 +67,14 @@
   animation: shine-sweep 1.4s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
 }
 
-h1, h2, h3 {
-  font-family: 'Geist', sans-serif;
+h1 {
+  font-family: 'Caprasimo', cursive;
+}
+
+h2, h3 {
+  font-family: 'DM Sans', sans-serif;
 }
 
 body, p, span, a, li, td {
-  font-family: 'Geist Mono', monospace;
+  font-family: 'Inter', sans-serif;
 }

@@ -287,7 +287,7 @@ function TShirtSVG({
           x="90"
           y="140"
           textAnchor="middle"
-          fontFamily="'Geist', sans-serif"
+          fontFamily="'DM Sans', sans-serif"
           fontWeight="800"
           fontSize="16"
           fill={accent}
@@ -312,7 +312,7 @@ function TShirtSVG({
           x="90.5"
           y="140.5"
           textAnchor="middle"
-          fontFamily="'Geist', sans-serif"
+          fontFamily="'DM Sans', sans-serif"
           fontWeight="800"
           fontSize="16"
           fill="rgba(0,0,0,0.15)"
@@ -462,7 +462,7 @@ export default function ClothesLine() {
         <h2
           className="text-4xl md:text-5xl font-bold text-center mb-16"
           style={{
-            fontFamily: "'Geist', sans-serif",
+            fontFamily: "'DM Sans', sans-serif",
             letterSpacing: '-0.03em',
             color: '#1A1A1A',
           }}
@@ -585,14 +585,14 @@ export default function ClothesLine() {
                             <div className="pl-3">
                               <h3
                                 className="font-bold text-gray-900 text-sm mb-1"
-                                style={{ fontFamily: "'Geist', sans-serif" }}
+                                style={{ fontFamily: "'DM Sans', sans-serif" }}
                               >
                                 {point.title}
                               </h3>
                               <p
                                 className="text-gray-500 text-xs leading-relaxed"
                                 style={{
-                                  fontFamily: "'Geist Mono', monospace",
+                                  fontFamily: "'Inter', sans-serif",
                                 }}
                               >
                                 {point.description}
