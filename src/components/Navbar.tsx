@@ -52,7 +52,9 @@ export default function Navbar() {
                 Inquire
               </a>
               <a
-                href="#"
+                href="https://calendly.com/ryan-thedripcloud/30min"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
               >
                 Book a Demo
@@ -119,7 +121,9 @@ export default function Navbar() {
             Inquire
           </a>
           <a
-            href="#"
+            href="https://calendly.com/ryan-thedripcloud/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white block px-3 py-2 rounded-lg text-base font-medium transition-colors duration-200 mt-4"
           >
             Book a Demo

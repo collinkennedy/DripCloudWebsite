@@ -81,7 +81,9 @@ const Hero: React.FC = () => {
         </motion.p>
         
         <motion.a 
-          href="#"
+          href="https://calendly.com/ryan-thedripcloud/30min"
+          target="_blank"
+          rel="noopener noreferrer"
           className="book-demo-btn inline-block bg-[#6B2D8B] text-white px-8 py-4 rounded-lg text-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300"
           style={{ transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
           initial={{ opacity: 0, y: 10 }}
