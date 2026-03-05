@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
 
 export default function Navbar() {
@@ -29,11 +30,13 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0 py-3">
-            <img 
-              src={logo} 
-              alt="DripCloud" 
-              className="h-14 w-auto"
-            />
+            <Link to="/">
+              <img
+                src={logo}
+                alt="DripCloud"
+                className="h-14 w-auto"
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -51,6 +54,12 @@ export default function Navbar() {
               >
                 Inquire
               </a>
+              <Link
+                to="/login"
+                className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200"
+              >
+                Log In
+              </Link>
               <a
                 href="https://calendly.com/ryan-thedripcloud/30min"
                 target="_blank"
@@ -120,6 +129,12 @@ export default function Navbar() {
           >
             Inquire
           </a>
+          <Link
+            to="/login"
+            className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200"
+          >
+            Log In
+          </Link>
           <a
             href="https://calendly.com/ryan-thedripcloud/30min"
             target="_blank"

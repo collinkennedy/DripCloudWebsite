@@ -1,20 +1,15 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import HowItWorks from './components/HowItWorks'
-import WhyDripCloud from './components/WhyDripCloud'
-import Footer from './components/Footer'
+import { Routes, Route } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <main>
-        <Hero />
-        <HowItWorks />
-        <WhyDripCloud />
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+    </Routes>
   )
 }
 
