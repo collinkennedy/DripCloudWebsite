@@ -38,10 +38,33 @@ describe('HowItWorks', () => {
     expect(screen.getByRole('button', { name: /start designing/i })).toBeInTheDocument()
   })
 
-  it('renders floating cards', () => {
+  it('renders Design tab floating cards', () => {
     render(<HowItWorks />)
     expect(screen.getByText('Print Ready')).toBeInTheDocument()
     expect(screen.getByText('Premium Quality')).toBeInTheDocument()
+  })
+
+  it('renders Fulfill tab visual with tracking timeline', async () => {
+    const user = userEvent.setup()
+    render(<HowItWorks />)
+
+    await user.click(screen.getByRole('tab', { name: /fulfill/i }))
+
+    expect(screen.getByText('Fulfillment Progress')).toBeInTheDocument()
+    expect(screen.getByText('On Track')).toBeInTheDocument()
+    expect(screen.getByText('Printed & Inspected')).toBeInTheDocument()
+    expect(screen.getByText('Branded & Packed')).toBeInTheDocument()
+    expect(screen.getByText('Shipped & Tracked')).toBeInTheDocument()
+  })
+
+  it('renders Fulfill tab floating cards', async () => {
+    const user = userEvent.setup()
+    render(<HowItWorks />)
+
+    await user.click(screen.getByRole('tab', { name: /fulfill/i }))
+
+    expect(screen.getByText('Zero Inventory')).toBeInTheDocument()
+    expect(screen.getByText('No Minimums')).toBeInTheDocument()
   })
 
   it('switches content when clicking a tab', async () => {
