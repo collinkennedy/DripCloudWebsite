@@ -44,9 +44,9 @@ const STEPS: Step[] = [
   {
     number: '2',
     title: 'Sell',
-    subtitle: 'Launch your branded storefront in minutes.',
+    subtitle: 'Sell your merch in-store, or online.',
     description:
-      'Your customers order from your branded storefront. We handle the rest.',
+      'We handle the rest.',
     features: [],
     cta: '',
   },

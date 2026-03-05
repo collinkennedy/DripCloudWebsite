@@ -74,7 +74,7 @@ describe('HowItWorks', () => {
     expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: /sell/i }))
-    expect(screen.getByText(/your customers order/i)).toBeInTheDocument()
+    expect(screen.getByText(/sell your merch/i)).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: /fulfill/i }))
     expect(screen.getByText(/print, pack, and ship/i)).toBeInTheDocument()
@@ -105,7 +105,7 @@ describe('HowItWorks', () => {
       act(() => {
         vi.advanceTimersByTime(7000)
       })
-      expect(screen.getByText(/your customers order/i)).toBeInTheDocument()
+      expect(screen.getByText(/sell your merch/i)).toBeInTheDocument()
 
       act(() => {
         vi.advanceTimersByTime(7000)
