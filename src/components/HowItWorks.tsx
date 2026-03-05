@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Image,
   PenTool,
@@ -359,10 +360,10 @@ export default function HowItWorks() {
 
               {active.cta && (
                 <div className="mt-6">
-                  <button className="inline-flex items-center gap-2 bg-gray-900 text-white px-7 py-3.5 rounded-md text-base font-semibold hover:bg-gray-800 transition-colors cursor-pointer">
+                  <Link to="/signup" className="inline-flex items-center gap-2 bg-gray-900 text-white px-7 py-3.5 rounded-md text-base font-semibold hover:bg-gray-800 transition-colors cursor-pointer">
                     {active.cta}
                     <ArrowRight size={18} />
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>

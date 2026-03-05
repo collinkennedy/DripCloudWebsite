@@ -1,52 +1,55 @@
-import { render, screen, act } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
+import { renderWithRouter } from '../../test/renderWithRouter'
 import HowItWorks from '../HowItWorks'
 
 describe('HowItWorks', () => {
   it('has how-it-works testid', () => {
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
     expect(screen.getByTestId('how-it-works')).toBeInTheDocument()
   })
 
   it('renders section title', () => {
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
     expect(screen.getByText('How It Works')).toBeInTheDocument()
   })
 
   it('renders all three tab titles', () => {
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
     expect(screen.getByText('Design')).toBeInTheDocument()
     expect(screen.getByText('Sell')).toBeInTheDocument()
     expect(screen.getByText('Fulfill')).toBeInTheDocument()
   })
 
   it('shows the first tab (Design) as active by default', () => {
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
     expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
   })
 
   it('renders Design tab features', () => {
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
     expect(screen.getByText('High-resolution mockup generator')).toBeInTheDocument()
     expect(screen.getByText('Free professional design support')).toBeInTheDocument()
     expect(screen.getByText('Hundreds of premium products')).toBeInTheDocument()
   })
 
-  it('renders Design tab CTA button', () => {
-    render(<HowItWorks />)
-    expect(screen.getByRole('button', { name: /start designing/i })).toBeInTheDocument()
+  it('renders Design tab CTA link', () => {
+    renderWithRouter(<HowItWorks />)
+    const cta = screen.getByRole('link', { name: /start designing/i })
+    expect(cta).toBeInTheDocument()
+    expect(cta).toHaveAttribute('href', '/signup')
   })
 
   it('renders Design tab floating cards', () => {
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
     expect(screen.getByText('Print Ready')).toBeInTheDocument()
     expect(screen.getByText('Premium Quality')).toBeInTheDocument()
   })
 
   it('renders Sell tab collage and sales badge', async () => {
     const user = userEvent.setup()
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
 
     await user.click(screen.getByRole('tab', { name: /sell/i }))
 
@@ -57,7 +60,7 @@ describe('HowItWorks', () => {
 
   it('renders Fulfill tab visual with tracking timeline', async () => {
     const user = userEvent.setup()
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
 
     await user.click(screen.getByRole('tab', { name: /fulfill/i }))
 
@@ -70,7 +73,7 @@ describe('HowItWorks', () => {
 
   it('renders Fulfill tab floating cards', async () => {
     const user = userEvent.setup()
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
 
     await user.click(screen.getByRole('tab', { name: /fulfill/i }))
 
@@ -80,7 +83,7 @@ describe('HowItWorks', () => {
 
   it('switches content when clicking a tab', async () => {
     const user = userEvent.setup()
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
 
     expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
 
@@ -93,7 +96,7 @@ describe('HowItWorks', () => {
 
   it('marks the active tab with aria-selected', async () => {
     const user = userEvent.setup()
-    render(<HowItWorks />)
+    renderWithRouter(<HowItWorks />)
 
     const designTab = screen.getByRole('tab', { name: /design/i })
     const sellTab = screen.getByRole('tab', { name: /sell/i })
@@ -109,7 +112,7 @@ describe('HowItWorks', () => {
   it('auto-advances to the next tab', () => {
     vi.useFakeTimers()
     try {
-      render(<HowItWorks />)
+      renderWithRouter(<HowItWorks />)
 
       expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
 
