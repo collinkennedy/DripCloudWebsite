@@ -26,6 +26,24 @@ describe('HowItWorks', () => {
     expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
   })
 
+  it('renders Design tab features', () => {
+    render(<HowItWorks />)
+    expect(screen.getByText('High-resolution mockup generator')).toBeInTheDocument()
+    expect(screen.getByText('Free professional design support')).toBeInTheDocument()
+    expect(screen.getByText('Hundreds of premium products')).toBeInTheDocument()
+  })
+
+  it('renders Design tab CTA button', () => {
+    render(<HowItWorks />)
+    expect(screen.getByRole('button', { name: /start designing/i })).toBeInTheDocument()
+  })
+
+  it('renders floating cards', () => {
+    render(<HowItWorks />)
+    expect(screen.getByText('Print Ready')).toBeInTheDocument()
+    expect(screen.getByText('Premium Quality')).toBeInTheDocument()
+  })
+
   it('switches content when clicking a tab', async () => {
     const user = userEvent.setup()
     render(<HowItWorks />)
@@ -33,20 +51,7 @@ describe('HowItWorks', () => {
     expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: /sell/i }))
-    expect(screen.getByText(/branded storefront/i)).toBeInTheDocument()
-
-    await user.click(screen.getByRole('tab', { name: /fulfill/i }))
-    expect(screen.getByText(/print, pack, and ship/i)).toBeInTheDocument()
-  })
-
-  it('renders step descriptions for all tabs', async () => {
-    const user = userEvent.setup()
-    render(<HowItWorks />)
-
-    expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
-
-    await user.click(screen.getByRole('tab', { name: /sell/i }))
-    expect(screen.getByText(/branded storefront/i)).toBeInTheDocument()
+    expect(screen.getByText(/your customers order/i)).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: /fulfill/i }))
     expect(screen.getByText(/print, pack, and ship/i)).toBeInTheDocument()
@@ -77,7 +82,7 @@ describe('HowItWorks', () => {
       act(() => {
         vi.advanceTimersByTime(7000)
       })
-      expect(screen.getByText(/branded storefront/i)).toBeInTheDocument()
+      expect(screen.getByText(/your customers order/i)).toBeInTheDocument()
 
       act(() => {
         vi.advanceTimersByTime(7000)
