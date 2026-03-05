@@ -180,7 +180,7 @@ function FulfillVisual() {
       </div>
 
       {/* Floating card: No Minimums (bottom-left) */}
-      <div className="hiw-float absolute bottom-[60px] left-[-20px] z-[3] bg-white px-6 py-4 rounded-xl shadow-[0_16px_32px_rgba(0,0,0,0.06)] flex items-center gap-4">
+      <div className="hiw-float absolute bottom-[-10px] left-[-20px] z-[3] bg-white px-6 py-4 rounded-xl shadow-[0_16px_32px_rgba(0,0,0,0.06)] flex items-center gap-4">
         <div className="w-9 h-9 rounded-[10px] bg-[#ede9fe] flex items-center justify-center">
           <Package size={20} className="text-[#6B2D8B]" />
         </div>
