@@ -11,6 +11,7 @@ import {
   Truck,
   PackageOpen,
   Package,
+  TrendingUp,
 } from 'lucide-react'
 
 interface Feature {
@@ -101,6 +102,46 @@ function DesignVisual() {
           <Heart size={18} className="text-[#db2777]" />
         </div>
         <span className="text-[15px] font-semibold text-gray-900">Premium Quality</span>
+      </div>
+    </div>
+  )
+}
+
+function SellVisual() {
+  return (
+    <div className="flex-[1.2] relative min-h-[400px] flex items-center justify-center">
+      {/* Blob background */}
+      <div
+        className="hiw-blob absolute w-[500px] h-[500px] z-0"
+        style={{
+          background: '#f3efff',
+          borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%',
+        }}
+      />
+
+      {/* Collage container */}
+      <div className="relative z-[1] w-[500px] h-[400px]">
+        {/* Main image (top-left, larger) */}
+        <img
+          className="absolute top-0 left-10 w-[320px] rounded-xl shadow-[0_12px_24px_rgba(107,70,193,0.15)] border-4 border-white bg-white object-cover"
+          style={{ aspectRatio: '4/5' }}
+          src="https://storage.googleapis.com/banani-generated-images/generated-images/8bb9c1b0-51f2-4050-aad1-d33f6f53190b.jpg"
+          alt="E-commerce dashboard"
+        />
+
+        {/* Secondary image (bottom-right, smaller) */}
+        <img
+          className="absolute bottom-5 right-0 w-[240px] rounded-xl shadow-[0_16px_32px_rgba(107,70,193,0.2)] border-4 border-white bg-white object-cover"
+          style={{ aspectRatio: '1/1' }}
+          src="https://storage.googleapis.com/banani-generated-images/generated-images/4d5832dc-0896-49a7-a24f-0be244752716.jpg"
+          alt="Branded merchandise"
+        />
+
+        {/* Floating badge: +24% Sales */}
+        <div className="hiw-float-delayed absolute top-10 -right-5 z-[2] bg-white px-5 py-3 rounded-full shadow-[0_8px_16px_rgba(0,0,0,0.1)] flex items-center gap-2">
+          <TrendingUp size={20} className="text-[#22c55e]" />
+          <span className="font-semibold text-[15px] text-gray-900">+24% Sales</span>
+        </div>
       </div>
     </div>
   )
@@ -328,17 +369,7 @@ export default function HowItWorks() {
 
             {/* Visual area — tab-specific */}
             {activeIndex === 0 && <DesignVisual />}
-            {activeIndex === 1 && (
-              <div className="flex-[1.2] relative min-h-[300px] flex items-center justify-center">
-                <div
-                  className="hiw-blob absolute -right-5 top-5 w-[90%] h-[120%] z-0"
-                  style={{
-                    background: 'linear-gradient(135deg, #f3e8ff 0%, #ede9fe 100%)',
-                    borderRadius: '40% 60% 70% 30% / 40% 50% 60% 50%',
-                  }}
-                />
-              </div>
-            )}
+            {activeIndex === 1 && <SellVisual />}
             {activeIndex === 2 && <FulfillVisual />}
           </div>
         </div>

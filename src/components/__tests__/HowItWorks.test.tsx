@@ -44,6 +44,17 @@ describe('HowItWorks', () => {
     expect(screen.getByText('Premium Quality')).toBeInTheDocument()
   })
 
+  it('renders Sell tab collage and sales badge', async () => {
+    const user = userEvent.setup()
+    render(<HowItWorks />)
+
+    await user.click(screen.getByRole('tab', { name: /sell/i }))
+
+    expect(screen.getByAltText('E-commerce dashboard')).toBeInTheDocument()
+    expect(screen.getByAltText('Branded merchandise')).toBeInTheDocument()
+    expect(screen.getByText('+24% Sales')).toBeInTheDocument()
+  })
+
   it('renders Fulfill tab visual with tracking timeline', async () => {
     const user = userEvent.setup()
     render(<HowItWorks />)
