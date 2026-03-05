@@ -413,7 +413,7 @@ const swingOnHover = {
   rotate: [0, -5, 3, -2, 1, 0],
   transition: {
     duration: 1,
-    ease: 'easeInOut',
+    ease: 'easeInOut' as const,
   },
 }
 
