@@ -38,10 +38,44 @@ describe('HowItWorks', () => {
     expect(screen.getByRole('button', { name: /start designing/i })).toBeInTheDocument()
   })
 
-  it('renders floating cards', () => {
+  it('renders Design tab floating cards', () => {
     render(<HowItWorks />)
     expect(screen.getByText('Print Ready')).toBeInTheDocument()
     expect(screen.getByText('Premium Quality')).toBeInTheDocument()
+  })
+
+  it('renders Sell tab collage and sales badge', async () => {
+    const user = userEvent.setup()
+    render(<HowItWorks />)
+
+    await user.click(screen.getByRole('tab', { name: /sell/i }))
+
+    expect(screen.getByAltText('E-commerce dashboard')).toBeInTheDocument()
+    expect(screen.getByAltText('Branded merchandise')).toBeInTheDocument()
+    expect(screen.getByText('+24% Sales')).toBeInTheDocument()
+  })
+
+  it('renders Fulfill tab visual with tracking timeline', async () => {
+    const user = userEvent.setup()
+    render(<HowItWorks />)
+
+    await user.click(screen.getByRole('tab', { name: /fulfill/i }))
+
+    expect(screen.getByText('Fulfillment Progress')).toBeInTheDocument()
+    expect(screen.getByText('On Track')).toBeInTheDocument()
+    expect(screen.getByText('Printed & Inspected')).toBeInTheDocument()
+    expect(screen.getByText('Branded & Packed')).toBeInTheDocument()
+    expect(screen.getByText('Shipped & Tracked')).toBeInTheDocument()
+  })
+
+  it('renders Fulfill tab floating cards', async () => {
+    const user = userEvent.setup()
+    render(<HowItWorks />)
+
+    await user.click(screen.getByRole('tab', { name: /fulfill/i }))
+
+    expect(screen.getByText('Zero Inventory')).toBeInTheDocument()
+    expect(screen.getByText('No Minimums')).toBeInTheDocument()
   })
 
   it('switches content when clicking a tab', async () => {
@@ -51,7 +85,7 @@ describe('HowItWorks', () => {
     expect(screen.getByText(/upload your designs/i)).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: /sell/i }))
-    expect(screen.getByText(/your customers order/i)).toBeInTheDocument()
+    expect(screen.getByText(/sell your merch/i)).toBeInTheDocument()
 
     await user.click(screen.getByRole('tab', { name: /fulfill/i }))
     expect(screen.getByText(/print, pack, and ship/i)).toBeInTheDocument()
@@ -82,7 +116,7 @@ describe('HowItWorks', () => {
       act(() => {
         vi.advanceTimersByTime(7000)
       })
-      expect(screen.getByText(/your customers order/i)).toBeInTheDocument()
+      expect(screen.getByText(/sell your merch/i)).toBeInTheDocument()
 
       act(() => {
         vi.advanceTimersByTime(7000)
