@@ -331,7 +331,7 @@ export default function HowItWorks() {
         <div
           id={`panel-${active.number}`}
           role="tabpanel"
-          className="mt-10"
+          className="mt-10 min-h-[520px]"
         >
           <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-center">
             {/* Text area */}
