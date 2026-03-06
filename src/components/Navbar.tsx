@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../lib/AuthProvider'
 import logo from '../assets/logo.png'
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { user, signOut } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,12 +56,21 @@ export default function Navbar() {
               >
                 Inquire
               </a>
-              <Link
-                to="/login"
-                className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                Log In
-              </Link>
+              {user ? (
+                <button
+                  onClick={() => signOut()}
+                  className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer"
+                >
+                  Log Out
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200"
+                >
+                  Log In
+                </Link>
+              )}
               <a
                 href="https://calendly.com/ryan-thedripcloud/30min"
                 target="_blank"
@@ -129,12 +140,21 @@ export default function Navbar() {
           >
             Inquire
           </a>
-          <Link
-            to="/login"
-            className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200"
-          >
-            Log In
-          </Link>
+          {user ? (
+            <button
+              onClick={() => signOut()}
+              className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200 cursor-pointer w-full text-left"
+            >
+              Log Out
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200"
+            >
+              Log In
+            </Link>
+          )}
           <a
             href="https://calendly.com/ryan-thedripcloud/30min"
             target="_blank"

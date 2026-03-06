@@ -14,9 +14,10 @@ describe('SignupPage', () => {
     expect(screen.getByText('Create your account')).toBeInTheDocument()
   })
 
-  it('renders name, email, and password fields', () => {
+  it('renders name, business name, email, and password fields', () => {
     renderWithRouter(<SignupPage />)
     expect(screen.getByLabelText('Full Name')).toBeInTheDocument()
+    expect(screen.getByLabelText('Business Name')).toBeInTheDocument()
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
   })
