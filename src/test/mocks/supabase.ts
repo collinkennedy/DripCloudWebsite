@@ -11,4 +11,7 @@ export const supabase = {
     signInWithOtp: vi.fn().mockResolvedValue({ data: {}, error: null }),
     signOut: vi.fn().mockResolvedValue({ error: null }),
   },
+  functions: {
+    invoke: vi.fn().mockResolvedValue({ data: [], error: null }),
+  },
 }
