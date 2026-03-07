@@ -35,7 +35,7 @@ export default function ProductsPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Products</h1>
         <Link
-          to="#"
+          to="/dashboard/design"
           className="flex items-center gap-2 rounded-lg bg-[#6B2D8B] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#5a2576]"
         >
           <Plus size={16} />
@@ -81,7 +81,7 @@ export default function ProductsPage() {
             Design your first piece of merchandise to get started.
           </p>
           <Link
-            to="#"
+            to="/dashboard/design"
             className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#6B2D8B] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#5a2576]"
           >
             <Plus size={16} />

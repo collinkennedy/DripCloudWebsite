@@ -25,13 +25,21 @@ src/
     AuthProvider.tsx    # React context: user, session, loading, signOut
   types/
     product.ts         # Product interface matching DB schema
+    catalog.ts         # CatalogProduct, CatalogVariant, CatalogColor, WizardState types
   hooks/
     useProducts.ts     # Fetch products via supabase.functions.invoke
+    useCatalog.ts      # Fetch catalog products list
+    useCatalogProduct.ts # Fetch single product + variants
+    useFileUpload.ts   # Upload to Supabase Storage → printful-files
+    useMockupGenerator.ts # Create mockup task + poll status
+    useCreateProduct.ts # Create sync product via printful-products
   components/          # Shared UI components (Navbar, AuthNavbar, etc.)
   components/__tests__/ # Co-located component tests
   components/dashboard/ # Dashboard shell: DashboardLayout, Sidebar, TopBar, MetricCard, ProductCard, etc.
+  components/studio/   # Studio (design flow) shell: StudioLayout, StudioTopBar, StudioProgress, upload/mockup components
   pages/               # Route-level page components (DashboardHomePage, ProductsPage, PlaceholderPage, etc.)
   pages/__tests__/     # Co-located page tests
+  pages/studio/        # Design flow wizard: StudioPage, SelectProductStep, DesignStep, ConfirmStep
   test/
     setup.ts           # Vitest setup (jest-dom, supabase mock)
     mocks/supabase.ts  # Supabase mock for tests
@@ -43,6 +51,7 @@ supabase/
   migrations/          # SQL migration files (run via CLI or manually in SQL Editor)
     001_create_merchants.sql
     002_create_products.sql
+    003_create_design_files_bucket.sql
   functions/
     _shared/            # Shared helpers (cors.ts, printful.ts)
     printful-catalog/   # Browse Printful catalog

@@ -34,7 +34,7 @@ export default function DashboardHomePage({ user: userProp }: DashboardHomePageP
           </p>
         </div>
         <Link
-          to="#"
+          to="/dashboard/design"
           className="flex items-center gap-2 rounded-lg bg-[#6B2D8B] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#5a2576]"
         >
           <Plus size={16} />

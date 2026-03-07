@@ -27,4 +27,9 @@ describe('App routing', () => {
     renderWithRouter(<App />, { initialEntries: ['/dashboard'] })
     expect(screen.getByTestId('dashboard-loading')).toBeInTheDocument()
   })
+
+  it('renders studio loading state at /dashboard/design', () => {
+    renderWithRouter(<App />, { initialEntries: ['/dashboard/design'] })
+    expect(screen.getByTestId('studio-loading')).toBeInTheDocument()
+  })
 })

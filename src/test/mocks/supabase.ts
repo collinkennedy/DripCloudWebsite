@@ -1,5 +1,10 @@
 import { vi } from 'vitest'
 
+const storageMock = {
+  upload: vi.fn().mockResolvedValue({ data: { path: 'test-file.png' }, error: null }),
+  getPublicUrl: vi.fn().mockReturnValue({ data: { publicUrl: 'https://example.com/test-file.png' } }),
+}
+
 export const supabase = {
   auth: {
     getSession: vi.fn().mockResolvedValue({ data: { session: null }, error: null }),
@@ -13,5 +18,8 @@ export const supabase = {
   },
   functions: {
     invoke: vi.fn().mockResolvedValue({ data: [], error: null }),
+  },
+  storage: {
+    from: vi.fn().mockReturnValue(storageMock),
   },
 }
