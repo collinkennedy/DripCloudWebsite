@@ -1,6 +1,6 @@
 # DripCloud Website
 
-Marketing website for DripCloud — an on-demand custom merchandise platform (no minimums, no inventory). 
+Marketing website and merchant dashboard for DripCloud — an on-demand custom merchandise platform (no minimums, no inventory).
 
 ## Tech Stack
 
@@ -9,6 +9,8 @@ Marketing website for DripCloud — an on-demand custom merchandise platform (no
 - **Styling:** Tailwind CSS 4 (via `@tailwindcss/vite` plugin)
 - **Animation:** Framer Motion
 - **Testing:** Vitest + React Testing Library + jsdom
+- **Auth & Database:** Supabase (auth, Postgres, Edge Functions)
+- **Print Fulfillment:** Printful API (single DripCloud account, multi-tenant via our DB)
 - **Fonts:** Caprasimo (h1), DM Sans (h2/h3/nav/buttons), Inter (body), Fragment Mono (mono accents)
 - **Brand color:** `#6B2D8B` (purple)
 
@@ -16,11 +18,25 @@ Marketing website for DripCloud — an on-demand custom merchandise platform (no
 
 ```
 src/
-  App.tsx              # Root layout: Navbar → Hero → HowItWorks → WhyDripCloud → Footer
-  components/          # Page sections (one component per section)
-  components/__tests__/ # Co-located test files
+  App.tsx              # Root router: /, /login, /signup, /dashboard
+  main.tsx             # Entry point: BrowserRouter + AuthProvider
+  lib/
+    supabase.ts        # Supabase client init (uses env vars)
+    AuthProvider.tsx    # React context: user, session, loading, signOut
+  components/          # Shared UI components (Navbar, AuthNavbar, etc.)
+  components/__tests__/ # Co-located component tests
+  pages/               # Route-level page components
+  pages/__tests__/     # Co-located page tests
+  test/
+    setup.ts           # Vitest setup (jest-dom, supabase mock)
+    mocks/supabase.ts  # Supabase mock for tests
+    renderWithRouter.tsx # Test helper wrapping MemoryRouter
   assets/              # Static assets (logo.png)
   index.css            # Global styles, Tailwind import, keyframe animations
+supabase/
+  migrations/          # SQL migration files (run manually in Supabase SQL Editor)
+docs/
+  ARCHITECTURE.md      # System architecture, business logic, data flow
 ```
 
 ## Commands
@@ -30,6 +46,14 @@ src/
 - `npm test` — run all tests once (`vitest run`)
 - `npm run test:watch` — run tests in watch mode
 - `npm run lint` — run ESLint
+
+## Environment Variables
+
+Stored in `.env.local` (gitignored):
+
+- `VITE_SUPABASE_URL` — Supabase project URL (safe for browser)
+- `VITE_SUPABASE_ANON_KEY` — Supabase anon/public key (safe for browser)
+- `PRINTFUL_API_TOKEN` — Printful private API token (**server-side only**, never expose to browser)
 
 ## Deployment
 
@@ -57,3 +81,4 @@ src/
 - **Push back on bad decisions.** If the human proposes something that is a poor engineering choice, say so and explain why.
 - **All tests must pass before committing.** Run `npm test` and confirm zero failures before any commit.
 - **Use worktrees for subagents.** When spawning Task subagents, use `isolation: "worktree"` so they work on isolated copies of the repo.
+- **Update documentation.** When making code changes, update CLAUDE.md and docs/ARCHITECTURE.md if the change affects project structure, architecture, or business logic.
