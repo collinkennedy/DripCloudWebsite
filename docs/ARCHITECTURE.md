@@ -73,25 +73,26 @@ Links 1:1 with `auth.users`. Created automatically via trigger on signup.
 
 **RLS Policies:** Users can only view and update their own merchant row.
 
-### `products` table (planned)
-Will track sync products created via Printful, linked to merchants.
+### `products` table
+Tracks sync products created via Printful, linked to merchants. Migration: `002_create_products.sql`.
 
 | Column | Type | Notes |
 |--------|------|-------|
-| `id` | `uuid` PK | Auto-generated |
-| `merchant_id` | `uuid` FK | References `merchants.id` |
+| `id` | `uuid` PK | Auto-generated (`gen_random_uuid()`) |
+| `merchant_id` | `uuid` FK | References `merchants.id` (cascade delete) |
 | `printful_sync_id` | `bigint` | Printful sync product ID |
 | `printful_variant_ids` | `jsonb` | Array of Printful variant IDs |
-| `title` | `text` | Product display name |
+| `title` | `text` NOT NULL | Product display name |
 | `description` | `text` | Optional |
-| `retail_price` | `numeric` | Price merchant charges customers |
-| `base_cost` | `numeric` | Printful's cost (from API) |
-| `status` | `text` | `draft` / `live` / `in_review` / `archived` |
+| `retail_price` | `numeric` | Price merchant charges customers (default 0) |
+| `base_cost` | `numeric` | Printful's cost from API (default 0) |
+| `status` | `text` NOT NULL | `draft` / `live` / `in_review` / `archived` (default `draft`) |
 | `mockup_urls` | `jsonb` | Array of mockup image URLs |
 | `created_at` | `timestamptz` | Default `now()` |
 | `updated_at` | `timestamptz` | Auto-updated via trigger |
 
-**RLS Policies:** Merchants can only view/manage their own products.
+**RLS Policies:** Merchants can select, insert, update, and delete their own products only.
+**Index:** `idx_products_merchant_id` on `merchant_id` for fast lookups.
 
 ## Printful Integration
 
@@ -101,16 +102,25 @@ Will track sync products created via Printful, linked to merchants.
 - **Tenant isolation** enforced by our database: `products.merchant_id` links each product to its owner
 - Merchants never interact with Printful directly — DripCloud is the abstraction layer
 
-### Edge Functions (planned)
-All Printful API calls go through Supabase Edge Functions. The Printful API token is stored server-side only.
+### Edge Functions (deployed)
+All Printful API calls go through Supabase Edge Functions. The Printful API token is stored as a Supabase secret (`PRINTFUL_API_TOKEN`) and is never exposed to the browser.
 
-| Function | Purpose | Printful Endpoint |
-|----------|---------|-------------------|
-| `printful-catalog` | Browse blank products, variants, pricing | `GET /catalog/products`, `/catalog/variants` |
-| `printful-products` | Create/list/update sync products | `POST/GET /store/products` |
-| `printful-mockups` | Generate product mockup images | `POST /mockup-generator/create-task` |
-| `printful-files` | Upload design artwork | `POST /files` |
-| `printful-orders` | Create fulfillment orders | `POST /orders` |
+#### Shared Helpers (`supabase/functions/_shared/`)
+- **`cors.ts`** — Standard CORS headers used by all functions
+- **`printful.ts`** — `printfulFetch(path, options)` adds Bearer auth; `printfulRequest<T>(path, options)` adds error handling and returns parsed `result`
+
+#### Function Reference
+
+| Function | Methods | Auth Required | Purpose | Printful Endpoint |
+|----------|---------|---------------|---------|-------------------|
+| `printful-catalog` | GET | No | Browse blank products, variants, pricing. Supports `?product_id=` and `?category_id=` query params | `GET /products`, `GET /products/{id}` |
+| `printful-products` | GET, POST | Yes | GET: list merchant's products from our DB. POST: create sync product on Printful + store in our `products` table | `POST /store/products` |
+| `printful-files` | POST | No | Upload design artwork via URL | `POST /files` |
+| `printful-mockups` | GET, POST | No | POST: create mockup generation task. GET: check task status via `?task_key=` | `POST /mockup-generator/create-task/{id}`, `GET /mockup-generator/task` |
+| `printful-orders` | POST | Yes | Create fulfillment order on Printful | `POST /orders` |
+
+#### Authentication Pattern
+Functions that require auth (`printful-products`, `printful-orders`) pass the user's `Authorization` header to a Supabase client to verify identity via `supabase.auth.getUser()`. The authenticated `user.id` is used as `merchant_id` for RLS-scoped DB queries.
 
 ### Design New Merch Flow (3 steps)
 1. **Select Product** → `printful-catalog` returns available blanks with variants/colors/sizes

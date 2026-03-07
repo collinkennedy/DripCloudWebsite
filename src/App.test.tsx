@@ -22,4 +22,14 @@ describe('App routing', () => {
     renderWithRouter(<App />, { initialEntries: ['/signup'] })
     expect(screen.getByTestId('signup-page')).toBeInTheDocument()
   })
+
+  it('renders dashboard loading state at /dashboard', () => {
+    renderWithRouter(<App />, { initialEntries: ['/dashboard'] })
+    expect(screen.getByTestId('dashboard-loading')).toBeInTheDocument()
+  })
+
+  it('renders studio loading state at /dashboard/design', () => {
+    renderWithRouter(<App />, { initialEntries: ['/dashboard/design'] })
+    expect(screen.getByTestId('studio-loading')).toBeInTheDocument()
+  })
 })

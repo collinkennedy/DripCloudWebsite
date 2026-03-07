@@ -2,7 +2,12 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
-import DashboardPage from './pages/DashboardPage'
+import StudioLayout from './components/studio/StudioLayout'
+import StudioPage from './pages/studio/StudioPage'
+import DashboardLayout from './components/dashboard/DashboardLayout'
+import DashboardHomePage from './pages/DashboardHomePage'
+import ProductsPage from './pages/ProductsPage'
+import PlaceholderPage from './pages/PlaceholderPage'
 
 function App() {
   return (
@@ -10,7 +15,17 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/dashboard/design" element={<StudioLayout />}>
+        <Route index element={<StudioPage />} />
+      </Route>
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<DashboardHomePage />} />
+        <Route path="products" element={<ProductsPage />} />
+        <Route path="orders" element={<PlaceholderPage />} />
+        <Route path="storefront" element={<PlaceholderPage />} />
+        <Route path="analytics" element={<PlaceholderPage />} />
+        <Route path="settings" element={<PlaceholderPage />} />
+      </Route>
     </Routes>
   )
 }

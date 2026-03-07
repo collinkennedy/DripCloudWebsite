@@ -18,15 +18,28 @@ Marketing website and merchant dashboard for DripCloud — an on-demand custom m
 
 ```
 src/
-  App.tsx              # Root router: /, /login, /signup, /dashboard
+  App.tsx              # Root router: marketing + nested dashboard routes
   main.tsx             # Entry point: BrowserRouter + AuthProvider
   lib/
     supabase.ts        # Supabase client init (uses env vars)
     AuthProvider.tsx    # React context: user, session, loading, signOut
+  types/
+    product.ts         # Product interface matching DB schema
+    catalog.ts         # CatalogProduct, CatalogVariant, CatalogColor, WizardState types
+  hooks/
+    useProducts.ts     # Fetch products via supabase.functions.invoke
+    useCatalog.ts      # Fetch catalog products list
+    useCatalogProduct.ts # Fetch single product + variants
+    useFileUpload.ts   # Upload to Supabase Storage → printful-files
+    useMockupGenerator.ts # Create mockup task + poll status
+    useCreateProduct.ts # Create sync product via printful-products
   components/          # Shared UI components (Navbar, AuthNavbar, etc.)
   components/__tests__/ # Co-located component tests
-  pages/               # Route-level page components
+  components/dashboard/ # Dashboard shell: DashboardLayout, Sidebar, TopBar, MetricCard, ProductCard, etc.
+  components/studio/   # Studio (design flow) shell: StudioLayout, StudioTopBar, StudioProgress, upload/mockup components
+  pages/               # Route-level page components (DashboardHomePage, ProductsPage, PlaceholderPage, etc.)
   pages/__tests__/     # Co-located page tests
+  pages/studio/        # Design flow wizard: StudioPage, SelectProductStep, DesignStep, ConfirmStep
   test/
     setup.ts           # Vitest setup (jest-dom, supabase mock)
     mocks/supabase.ts  # Supabase mock for tests
@@ -34,7 +47,18 @@ src/
   assets/              # Static assets (logo.png)
   index.css            # Global styles, Tailwind import, keyframe animations
 supabase/
-  migrations/          # SQL migration files (run manually in Supabase SQL Editor)
+  config.toml          # Supabase CLI config (created by `supabase init`)
+  migrations/          # SQL migration files (run via CLI or manually in SQL Editor)
+    001_create_merchants.sql
+    002_create_products.sql
+    003_create_design_files_bucket.sql
+  functions/
+    _shared/            # Shared helpers (cors.ts, printful.ts)
+    printful-catalog/   # Browse Printful catalog
+    printful-products/  # CRUD sync products (auth required)
+    printful-files/     # Upload design artwork
+    printful-mockups/   # Generate/check mockup tasks
+    printful-orders/    # Create fulfillment orders (auth required)
 docs/
   ARCHITECTURE.md      # System architecture, business logic, data flow
 ```
@@ -54,6 +78,18 @@ Stored in `.env.local` (gitignored):
 - `VITE_SUPABASE_URL` — Supabase project URL (safe for browser)
 - `VITE_SUPABASE_ANON_KEY` — Supabase anon/public key (safe for browser)
 - `PRINTFUL_API_TOKEN` — Printful private API token (**server-side only**, never expose to browser)
+- `SUPABASE_ACCESS_TOKEN` — Personal Supabase management token (for CLI: deploy functions, push migrations, manage secrets)
+
+## Supabase CLI
+
+Requires `SUPABASE_ACCESS_TOKEN` env var (or pass via `--token`).
+
+- `npx supabase db push` — push migrations to remote DB
+- `npx supabase functions deploy <name>` — deploy an edge function
+- `npx supabase secrets set KEY=VALUE` — set a secret for edge functions
+- `npx supabase secrets list` — list current secrets
+
+**Note:** `db push` requires a direct Postgres connection. If it fails (network/firewall), run migrations manually in the [Supabase SQL Editor](https://supabase.com/dashboard/project/ojnwtwtewstzzxkkhzum/sql/new).
 
 ## Deployment
 
@@ -64,6 +100,8 @@ Stored in `.env.local` (gitignored):
 ## Git Workflow
 
 **Every feature, fix, or change MUST go through a feature branch + PR. This is mandatory, not optional.**
+
+**One branch per feature.** Each new task or feature gets its own branch — never reuse an existing feature branch for unrelated work.
 
 1. **Create a feature branch** off `main` (e.g. `feat/font-swap`, `fix/navbar-link`).
 2. **Do all work on the feature branch.** Commit and push to the feature branch.
