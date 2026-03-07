@@ -57,28 +57,38 @@ export default function Navbar() {
                 Inquire
               </a>
               {user ? (
-                <button
-                  onClick={() => signOut()}
-                  className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer"
-                >
-                  Log Out
-                </button>
+                <>
+                  <button
+                    onClick={() => signOut()}
+                    className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer"
+                  >
+                    Log Out
+                  </button>
+                  <Link
+                    to="/dashboard"
+                    className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+                  >
+                    Dashboard
+                  </Link>
+                </>
               ) : (
-                <Link
-                  to="/login"
-                  className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200"
-                >
-                  Log In
-                </Link>
+                <>
+                  <Link
+                    to="/login"
+                    className="text-gray-900 hover:text-[#6B2D8B] px-3 py-2 text-sm font-medium transition-colors duration-200"
+                  >
+                    Log In
+                  </Link>
+                  <a
+                    href="https://calendly.com/ryan-thedripcloud/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+                  >
+                    Book a Demo
+                  </a>
+                </>
               )}
-              <a
-                href="https://calendly.com/ryan-thedripcloud/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
-              >
-                Book a Demo
-              </a>
             </div>
           </div>
 
@@ -141,28 +151,38 @@ export default function Navbar() {
             Inquire
           </a>
           {user ? (
-            <button
-              onClick={() => signOut()}
-              className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200 cursor-pointer w-full text-left"
-            >
-              Log Out
-            </button>
+            <>
+              <button
+                onClick={() => signOut()}
+                className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200 cursor-pointer w-full text-left"
+              >
+                Log Out
+              </button>
+              <Link
+                to="/dashboard"
+                className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white block px-3 py-2 rounded-lg text-base font-medium transition-colors duration-200 mt-4"
+              >
+                Dashboard
+              </Link>
+            </>
           ) : (
-            <Link
-              to="/login"
-              className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200"
-            >
-              Log In
-            </Link>
+            <>
+              <Link
+                to="/login"
+                className="text-gray-900 hover:text-[#6B2D8B] block px-3 py-2 text-base font-medium transition-colors duration-200"
+              >
+                Log In
+              </Link>
+              <a
+                href="https://calendly.com/ryan-thedripcloud/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white block px-3 py-2 rounded-lg text-base font-medium transition-colors duration-200 mt-4"
+              >
+                Book a Demo
+              </a>
+            </>
           )}
-          <a
-            href="https://calendly.com/ryan-thedripcloud/30min"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#6B2D8B] hover:bg-[#5A2372] text-white block px-3 py-2 rounded-lg text-base font-medium transition-colors duration-200 mt-4"
-          >
-            Book a Demo
-          </a>
         </div>
       </div>
     </nav>
