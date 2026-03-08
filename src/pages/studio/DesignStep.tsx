@@ -62,10 +62,10 @@ export default function DesignStep({
     <div data-testid="design-step" className="flex flex-1 flex-col">
       <StudioTopBar currentStep="DESIGN" />
       <div className="flex flex-1 overflow-hidden">
-        {/* Left: Upload + Placement */}
-        <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-6">
+        {/* Left: Upload + Placement (narrow sidebar) */}
+        <div className="flex w-80 flex-shrink-0 flex-col gap-5 overflow-y-auto border-r border-gray-200 bg-white p-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Upload Your Design</h2>
+            <h2 className="text-lg font-bold text-gray-900">Upload Your Design</h2>
             <p className="mt-1 text-sm text-gray-500">
               Add your artwork to the {selectedProduct.title}
             </p>
@@ -81,9 +81,8 @@ export default function DesignStep({
           <PlacementSelector placement={placement} onPlacementChange={onPlacementChange} />
         </div>
 
-        {/* Right: Mockup Preview */}
-        <div className="w-96 flex-shrink-0 overflow-y-auto border-l border-gray-200 bg-white p-6">
-          <h3 className="mb-4 text-sm font-semibold text-gray-900">Preview</h3>
+        {/* Right: Mockup Preview (main area) */}
+        <div className="flex flex-1 items-center justify-center overflow-y-auto bg-gray-50 p-6">
           <MockupPreview status={mockupStatus} mockupUrls={mockupUrls} error={mockupError} />
         </div>
       </div>

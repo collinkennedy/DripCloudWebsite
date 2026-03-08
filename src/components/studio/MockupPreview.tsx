@@ -36,6 +36,16 @@ export default function MockupPreview({ status, mockupUrls, error }: MockupPrevi
     )
   }
 
+  if (mockupUrls.length === 1) {
+    return (
+      <div data-testid="mockup-preview" className="flex justify-center">
+        <div className="max-w-lg overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <img src={mockupUrls[0]} alt="Mockup 1" className="h-full w-full object-contain" />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div data-testid="mockup-preview" className="grid grid-cols-2 gap-4">
       {mockupUrls.map((url, i) => (

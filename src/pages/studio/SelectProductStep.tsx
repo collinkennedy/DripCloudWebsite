@@ -14,7 +14,7 @@ interface SelectProductStepProps {
   onSelectProduct: (product: CatalogProduct) => void
   onColorToggle: (color: CatalogColor) => void
   onSizeToggle: (size: string) => void
-  onContinue: () => void
+  onContinue: (variantIds: number[]) => void
 }
 
 export default function SelectProductStep({
@@ -35,7 +35,25 @@ export default function SelectProductStep({
     return products.filter((p) => p.type_name === activeCategory)
   }, [products, activeCategory])
 
+  // Show variant image for the first selected color, fallback to product image
+  const previewImage = useMemo(() => {
+    if (selectedColors.length > 0 && variants.length > 0) {
+      const match = variants.find((v) => v.color_code === selectedColors[0].color_code)
+      if (match?.image) return match.image
+    }
+    return selectedProduct?.image ?? ''
+  }, [selectedProduct, selectedColors, variants])
+
   const canContinue = selectedProduct !== null && selectedColors.length > 0 && selectedSizes.length > 0
+
+  const resolvedVariantIds = useMemo(() => {
+    if (!selectedColors.length || !selectedSizes.length) return []
+    const colorCodes = new Set(selectedColors.map((c) => c.color_code))
+    const sizeSet = new Set(selectedSizes)
+    return variants
+      .filter((v) => colorCodes.has(v.color_code) && sizeSet.has(v.size))
+      .map((v) => v.id)
+  }, [variants, selectedColors, selectedSizes])
 
   if (loading) {
     return (
@@ -105,7 +123,7 @@ export default function SelectProductStep({
         {selectedProduct && (
           <div className="w-80 flex-shrink-0 space-y-4 overflow-y-auto border-l border-gray-200 bg-white p-6">
             <ProductPreviewPanel
-              imageUrl={selectedProduct.image}
+              imageUrl={previewImage}
               title={selectedProduct.title}
             />
             {variants.length > 0 && (
@@ -127,7 +145,7 @@ export default function SelectProductStep({
           productName={selectedProduct.title}
           colorCount={selectedColors.length}
           sizeCount={selectedSizes.length}
-          onContinue={onContinue}
+          onContinue={() => onContinue(resolvedVariantIds)}
           disabled={!canContinue}
         />
       )}

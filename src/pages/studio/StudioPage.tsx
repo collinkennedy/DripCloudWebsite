@@ -10,7 +10,7 @@ import type { WizardStep, WizardState, CatalogProduct, CatalogColor } from '../.
 const initialState: WizardState = {
   step: 'PRODUCT',
   selectedProduct: null,
-  selectedVariants: [],
+  selectedVariantIds: [],
   selectedColors: [],
   selectedSizes: [],
   designFileUrl: null,
@@ -72,7 +72,7 @@ export default function StudioPage() {
     if (!state.selectedProduct || !state.designFileUrl) return
     const result = await create({
       productId: state.selectedProduct.id,
-      variantIds: state.selectedVariants.map((v) => v.id),
+      variantIds: state.selectedVariantIds,
       title: state.title || state.selectedProduct.title,
       description: state.description,
       retailPrice: state.retailPrice,
@@ -85,8 +85,7 @@ export default function StudioPage() {
     }
   }
 
-  // Compute variant IDs from selected colors + sizes
-  const variantIds = state.selectedVariants.map((v) => v.id)
+  const variantIds = state.selectedVariantIds
 
   return (
     <div data-testid="studio-page" className="flex flex-1 flex-col min-h-0">
@@ -100,7 +99,7 @@ export default function StudioPage() {
             onSelectProduct={handleSelectProduct}
             onColorToggle={handleColorToggle}
             onSizeToggle={handleSizeToggle}
-            onContinue={() => setStep('DESIGN')}
+            onContinue={(ids: number[]) => setState((s) => ({ ...s, step: 'DESIGN', selectedVariantIds: ids }))}
           />
         </>
       )}

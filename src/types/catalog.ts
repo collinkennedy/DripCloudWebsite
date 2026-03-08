@@ -10,6 +10,7 @@ export interface CatalogVariant {
   size: string
   color: string
   color_code: string
+  image: string
   price: string
   in_stock: boolean
 }
@@ -30,7 +31,7 @@ export type WizardStep = 'PRODUCT' | 'DESIGN' | 'CONFIRM'
 export interface WizardState {
   step: WizardStep
   selectedProduct: CatalogProduct | null
-  selectedVariants: CatalogVariant[]
+  selectedVariantIds: number[]
   selectedColors: CatalogColor[]
   selectedSizes: string[]
   designFileUrl: string | null
