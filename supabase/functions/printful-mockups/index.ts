@@ -37,11 +37,46 @@ serve(async (req) => {
         )
       }
 
+      // Fetch printfile info to get dimensions for each placement
+      const printfileInfo = await printfulRequest(
+        `/mockup-generator/printfiles/${product_id}`
+      )
+
+      // Build a map: printfile_id → { width, height }
+      const printfileDims: Record<number, { width: number; height: number }> = {}
+      for (const pf of printfileInfo.printfiles ?? []) {
+        printfileDims[pf.printfile_id] = { width: pf.width, height: pf.height }
+      }
+
+      // Find placement → printfile_id mapping from the first matching variant
+      const placementToPrintfile: Record<string, number> = {}
+      const targetVariantId = variant_ids?.[0]
+      for (const vp of printfileInfo.variant_printfiles ?? []) {
+        if (!targetVariantId || vp.variant_id === targetVariantId) {
+          for (const [placement, pfId] of Object.entries(vp.placements)) {
+            placementToPrintfile[placement] = pfId as number
+          }
+          break
+        }
+      }
+
+      // Enrich files with position data
+      const enrichedFiles = files.map((f: { placement: string; image_url: string }) => {
+        const pfId = placementToPrintfile[f.placement]
+        const dims = pfId ? printfileDims[pfId] : null
+        return {
+          ...f,
+          position: dims
+            ? { area_width: dims.width, area_height: dims.height, width: dims.width, height: dims.height, top: 0, left: 0 }
+            : { area_width: 1800, area_height: 1800, width: 1800, height: 1800, top: 0, left: 0 },
+        }
+      })
+
       const task = await printfulRequest(
         `/mockup-generator/create-task/${product_id}`,
         {
           method: 'POST',
-          body: JSON.stringify({ variant_ids, files }),
+          body: JSON.stringify({ variant_ids, files: enrichedFiles }),
         }
       )
 

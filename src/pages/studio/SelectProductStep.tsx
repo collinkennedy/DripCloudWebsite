@@ -14,7 +14,7 @@ interface SelectProductStepProps {
   onSelectProduct: (product: CatalogProduct) => void
   onColorToggle: (color: CatalogColor) => void
   onSizeToggle: (size: string) => void
-  onContinue: () => void
+  onContinue: (variantIds: number[]) => void
 }
 
 export default function SelectProductStep({
@@ -36,6 +36,15 @@ export default function SelectProductStep({
   }, [products, activeCategory])
 
   const canContinue = selectedProduct !== null && selectedColors.length > 0 && selectedSizes.length > 0
+
+  const resolvedVariantIds = useMemo(() => {
+    if (!selectedColors.length || !selectedSizes.length) return []
+    const colorCodes = new Set(selectedColors.map((c) => c.color_code))
+    const sizeSet = new Set(selectedSizes)
+    return variants
+      .filter((v) => colorCodes.has(v.color_code) && sizeSet.has(v.size))
+      .map((v) => v.id)
+  }, [variants, selectedColors, selectedSizes])
 
   if (loading) {
     return (
@@ -127,7 +136,7 @@ export default function SelectProductStep({
           productName={selectedProduct.title}
           colorCount={selectedColors.length}
           sizeCount={selectedSizes.length}
-          onContinue={onContinue}
+          onContinue={() => onContinue(resolvedVariantIds)}
           disabled={!canContinue}
         />
       )}

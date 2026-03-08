@@ -30,7 +30,7 @@ export type WizardStep = 'PRODUCT' | 'DESIGN' | 'CONFIRM'
 export interface WizardState {
   step: WizardStep
   selectedProduct: CatalogProduct | null
-  selectedVariants: CatalogVariant[]
+  selectedVariantIds: number[]
   selectedColors: CatalogColor[]
   selectedSizes: string[]
   designFileUrl: string | null
