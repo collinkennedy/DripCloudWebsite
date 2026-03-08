@@ -10,6 +10,7 @@ export interface CatalogVariant {
   size: string
   color: string
   color_code: string
+  image: string
   price: string
   in_stock: boolean
 }
